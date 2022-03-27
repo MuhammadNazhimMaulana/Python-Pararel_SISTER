@@ -1,6 +1,7 @@
 from do_something import *
 import time
-import threading
+import threading # Agar bisa melakukan multithreading operation dalam python
+
 
 if __name__ == "__main__":
     start_time = time.time()
