@@ -7,63 +7,60 @@ logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
 
 items = []
 condition = threading.Condition()
+print('\n ### Perocbaan Sendiri ###')
 
-
-class Consumer(threading.Thread):
+class Pelanggan(threading.Thread):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def consume(self):
-
+    def beli(self):
         with condition:
-
-            if len(items) == 0:
-                logging.info('no items to consume')
+            if len(items) > 5 and len(items) < 10:
+                logging.info('Tidak ada yang bisa dibeli')
                 condition.wait()
 
             items.pop()
-            logging.info('consumed 1 item')
+            logging.info('Beli 1 roti')
 
             condition.notify()
 
     def run(self):
-        for i in range(20):
+        for i in range(10):
             time.sleep(2)
-            self.consume()
+            self.beli()
 
-
-class Producer(threading.Thread):
+class ProdusenRoti(threading.Thread):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def produce(self):
+    def membuat(self):
 
         with condition:
 
-            if len(items) == 10:
-                logging.info('items produced {}. Stopped'.format(len(items)))
+            if len(items) == 15:
+                logging.info('roti diproduksi {}. Berhenti'.format(len(items)))
                 condition.wait()
 
             items.append(1)
-            logging.info('total items {}'.format(len(items)))
+            logging.info('total roti {}'.format(len(items)))
 
             condition.notify()
 
     def run(self):
         for i in range(20):
             time.sleep(0.5)
-            self.produce()
+            self.membuat()
 
 
 def main():
-    producer = Producer(name='Producer')
-    consumer = Consumer(name='Consumer')
+    produsen = ProdusenRoti(name='Produsen Roti')
+    konsumen = Pelanggan(name='Konsumen')
 
-    producer.start()
-    consumer.start()
+    produsen.start()
+    konsumen.start()
 
-    producer.join()
-    consumer.join()
+    produsen.join()
+    konsumen.join()
 
 
 if __name__ == "__main__":

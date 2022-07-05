@@ -1,56 +1,60 @@
 import time
-import os
 from random import randint
 from threading import Thread
+from time import ctime
 
-class MyThreadClass (Thread):
-   def __init__(self, name, duration):
+print('\n ### Perocbaan Sendiri ###')
+
+class ProduksiThread (Thread):
+   def __init__(self, nama, umur, asal, mulai_eksekusi):
       Thread.__init__(self)
-      self.name = name
-      self.duration = duration
+      self.nama = nama
+      self.umur = umur
+      self.asal = asal
+      self.mulai_eksekusi = mulai_eksekusi
    def run(self):
-      print ("---> " + self.name + \
-             " running, belonging to process ID "\
-             + str(os.getpid()) + "\n")
-      time.sleep(self.duration)
-      print ("---> " + self.name + " over\n")
+      print ("---> " + self.nama + \
+             " berjalan, dengan umur "\
+             + str(self.umur) + " Berasal dari " + self.asal + "Berangkat pada" + self.mulai_eksekusi +"\n")
+      time.sleep(randint(1,10))
+      print ("---> " + self.nama + " selesai dengan Waktu " + self.mulai_eksekusi + "\n")
 
 
 def main():
     start_time = time.time()
     
     # Thread Creation
-    thread1 = MyThreadClass("Thread#1 ", randint(1,10))
-    thread2 = MyThreadClass("Thread#2 ", randint(1,10))
-    thread3 = MyThreadClass("Thread#3 ", randint(1,10))
-    thread4 = MyThreadClass("Thread#4 ", randint(1,10))
-    thread5 = MyThreadClass("Thread#5 ", randint(1,10))
-    thread6 = MyThreadClass("Thread#6 ", randint(1,10))
-    thread7 = MyThreadClass("Thread#7 ", randint(1,10))
-    thread8 = MyThreadClass("Thread#8 ", randint(1,10))
-    thread9 = MyThreadClass("Thread#9 ", randint(1,10))
+    orang1 = ProduksiThread("Orang#1 ", randint(1,10), "Indonesia", ctime())
+    orang2 = ProduksiThread("Orang#2 ", randint(1,10), "Indonesia", ctime())
+    orang3 = ProduksiThread("Orang#3 ", randint(1,10), "Indonesia", ctime())
+    orang4 = ProduksiThread("Orang#4 ", randint(1,10), "Indonesia", ctime())
+    orang5 = ProduksiThread("Orang#5 ", randint(1,10), "Indonesia", ctime())
+    orang6 = ProduksiThread("Orang#6 ", randint(1,10), "Indonesia", ctime())
+    orang7 = ProduksiThread("Orang#7 ", randint(1,10), "Indonesia", ctime())
+    orang8 = ProduksiThread("Orang#8 ", randint(1,10), "Indonesia", ctime())
+    orang9 = ProduksiThread("Orang#9 ", randint(1,10), "Indonesia", ctime())
 
     # Thread Running
-    thread1.start()
-    thread2.start()
-    thread3.start()
-    thread4.start()
-    thread5.start()
-    thread6.start()
-    thread7.start()
-    thread8.start()
-    thread9.start()
+    orang1.start()
+    orang2.start()
+    orang3.start()
+    orang4.start()
+    orang5.start()
+    orang6.start()
+    orang7.start()
+    orang8.start()
+    orang9.start()
 
     # Thread joining
-    thread1.join()
-    thread2.join()
-    thread3.join()
-    thread4.join()
-    thread5.join()
-    thread6.join()
-    thread7.join()
-    thread8.join()
-    thread9.join()
+    orang1.join()
+    orang2.join()
+    orang3.join()
+    orang4.join()
+    orang5.join()
+    orang6.join()
+    orang7.join()
+    orang8.join()
+    orang9.join()
 
     # End 
     print("End")
@@ -61,7 +65,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-    
-
-

@@ -32,12 +32,7 @@ if __name__ == '__main__':
     start_time = time.time()
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
         for item in number_list:
-            list_nama = ['Bobon', 'Toni', 'Tono', 'Budi', 'Sinta', 'Doni']
-
-            number = randrange(len(list_nama))
-            name = list_nama[number]
-
-            executor.submit(evaluate(item, name), item)
+            executor.submit(evaluate, item)
     print('Thread Pool Execution dalam %s seconds' % (time.time() - start_time))
 
       
@@ -45,10 +40,5 @@ if __name__ == '__main__':
     start_time = time.time()
     with concurrent.futures.ProcessPoolExecutor(max_workers=5) as executor:
         for item in number_list:
-            list_nama = ['Bobon', 'Toni', 'Tono', 'Budi', 'Sinta', 'Doni']
-
-            number = randrange(len(list_nama))
-            name = list_nama[number]
-
-            executor.submit(evaluate(item, name), item)
+            executor.submit(evaluate, item)
     print('Process Pool Execution dalam %s seconds' % (time.time() - start_time))

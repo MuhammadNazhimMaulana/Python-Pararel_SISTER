@@ -1,23 +1,25 @@
 import multiprocessing
 import random
+from random import randint
 import time
 
-class producer(multiprocessing.Process):
-    def __init__(self, queue):
+class docter(multiprocessing.Process):
+    def __init__(self, queue, jumlahAntrean):
         multiprocessing.Process.__init__(self)
         self.queue = queue
+        self.antre = jumlahAntrean
 
     def run(self) :
-        for i in range(10):
+        for i in range(self.antre):
             item = random.randint(0, 256)
             self.queue.put(item) 
-            print ("Process Producer : item %d appended to queue %s"\
+            print ("Process Docter : nomor %d masuk antrean %s"\
                    % (item,self.name))
             time.sleep(1)
-            print ("The size of queue is %s"\
+            print ("Jumlah Antrean %s"\
                    % self.queue.qsize())
        
-class consumer(multiprocessing.Process):
+class pacient(multiprocessing.Process):
     def __init__(self, queue):
         multiprocessing.Process.__init__(self)
         self.queue = queue
@@ -25,27 +27,22 @@ class consumer(multiprocessing.Process):
     def run(self):
         while True:
             if (self.queue.empty()):
-                print("the queue is empty")
+                print("Antrean Kosong")
                 break
             else :
                 time.sleep(2)
                 item = self.queue.get()
-                print ('Process Consumer : item %d popped \
-                        from by %s \n'\
+                print ('Process Pasien : nomor %d dipegang \
+                        oleh %s \n'\
                        % (item, self.name))
                 time.sleep(1)
 
 
 if __name__ == '__main__':
         queue = multiprocessing.Queue()
-        process_producer = producer(queue)
-        process_consumer = consumer(queue)
-        process_producer.start()
-        process_consumer.start()
-        process_producer.join()
-        process_consumer.join()
-
-
-        
-        
-         
+        process_docter = docter(queue, randint(15, 20))
+        process_pacient = pacient(queue)
+        process_docter.start()
+        process_pacient.start()
+        process_docter.join()
+        process_pacient.join()

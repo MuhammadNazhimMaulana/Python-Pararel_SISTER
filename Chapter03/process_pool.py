@@ -1,16 +1,17 @@
 #Using a Process Pool – Chapter 3: Process Based Parallelism
 import multiprocessing
+from random import randrange
 
-def function_square(data):
+def count_price(data):
     result = data*data
-    return result
+    return 'Rp.' + str(result)
 
 
 if __name__ == '__main__':
-    inputs = list(range(0,100))
-    pool = multiprocessing.Pool(processes=4)
-    pool_outputs = pool.map(function_square, inputs)
+    inputs = list(range(100,200))
+    pool = multiprocessing.Pool(processes=randrange(1, 2))
+    pool_outputs = pool.map(count_price, inputs)
 
     pool.close() 
     pool.join()  
-    print ('Pool    :', pool_outputs)
+    print ('List Harga   :', pool_outputs)

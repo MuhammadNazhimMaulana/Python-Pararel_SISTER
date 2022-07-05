@@ -2,5 +2,5 @@ from addTask import add
 
 
 if __name__ == '__main__':
-    add.delay(5, 5)
+    add(5, 5)
     

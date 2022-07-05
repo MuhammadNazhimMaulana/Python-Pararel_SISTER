@@ -28,9 +28,9 @@ if __name__ == '__main__':
                 args=(synchronizer,serializer)).start()
 
     Process(name='p3 - tes_tanpa_barrier'\
-            ,target=tes_tanpa_barrier).start()
+            ,target=tes_tanpa_barrier, args=[]).start()
     Process(name='p4 - tes_tanpa_barrier'\
-            ,target=tes_tanpa_barrier).start()
+            ,target=tes_tanpa_barrier, args=[]).start()
     
 
 

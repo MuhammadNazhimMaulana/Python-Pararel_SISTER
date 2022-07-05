@@ -2,8 +2,16 @@ import Pyro4
 
 class Server(object):
     @Pyro4.expose
-    def welcomeMessage(self, name):
-        return ("Hi welcome " + str (name))
+    def SelamatDatang(self, name):
+        return ("Halo Selamat Datang " + str (name))
+
+    @Pyro4.expose
+    def menyapa(self, name):
+        return ("Halo " + str (name))
+
+    @Pyro4.expose
+    def sapa_full(self, umur, name):
+        return (str (name)+ ", umurmu pasti " + str (umur) + " tahun")
 
 def startServer():
     server = Server()

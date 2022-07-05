@@ -1,13 +1,21 @@
 ##Using Pipes with multiprocessing – Chapter 3: Process Based Parallelism
 
 import multiprocessing 
- 
- 
-def create_items(pipe):
+from random import randrange
+
+
+def create_medicines(pipe):
+    # List of Medicine Name
+    names = ['Paramex', 'Paracetamol', 'Inzana', 'Conidin']
+
     output_pipe, _ = pipe
     for item in range(10):
-        # tambahkan
-        print('output pipe send dari create_items : '+str(item))
+
+        # Picking One Random list value
+        i = randrange(len(names))
+        name = names[i]
+
+        print('output pipe send dari create_medicines : '+ name +' '+str(item))
         output_pipe.send(item)
     output_pipe.close()
  
@@ -30,7 +38,7 @@ if __name__== '__main__':
     pipe_1 = multiprocessing.Pipe(True)
     process_pipe_1 = \
                    multiprocessing.Process\
-                   (target=create_items, args=(pipe_1,))
+                   (target=create_medicines, args=(pipe_1,))
     process_pipe_1.start()
 
 #second pipe,
